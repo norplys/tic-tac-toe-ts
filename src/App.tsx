@@ -55,7 +55,8 @@ function countingWinner (array : (null | string)[]) : string | null | boolean | 
    ]
   for(let i= 0 ; i < winner.length; i++){
       const[a,b,c] = winner[i];
-      if(array[a] && array[a] === array[b] && array[c]){
+      
+      if(array[a] && array[a] == array[b] && array[b] == array[c]){
         return array[a];
       }
   }
