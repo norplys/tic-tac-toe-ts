@@ -6,6 +6,15 @@
     flex-wrap: wrap;
 }
 
+@mixin square ($width, $height,$fontsize,$bordersize){
+    @include flex(center,center);
+    background-color: rgba(100,100,100,0.1);
+    border: $bordersize solid magenta;
+    width: $width;
+    height: $height;
+    font-size: $fontsize;
+    color: white;
+}
 
 *{
     box-sizing: border-box;
@@ -16,15 +25,43 @@ body{
     min-width: 100vw;
     min-height: 100vh;
     @include flex(center,center);
+    background-color: black;
+}
+.game{
+    @include flex(center,center,row-reverse);
+    gap: 10px;
+}
+.history{
+    color: white;
+    @include flex(center,center ,column);
+}
+.buttonHistory{
+    @include flex(flex-start,flex-start);
+    color:white;
+    border : 1px solid white;
+    width: 300px;
+    height: 300px;
+}
+.outside{
+    color: white;
+    font-size: 3rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
 .board{
     @include flex(center,center);
-    width: 600px;
-    height: 600px;
+    width: 612px;
+    height: 612px;
     background-color: rgba(100,100,100,0.1);
+    border: 6px solid magenta;
+    border-radius: 5px;
+}
+.min-square{
+    @include square(94px,94px ,2rem,2px);
+    @include flex(center,center);
+    .tiny-square{
+        @include square(30px,30px, 1rem ,1px);
+    }
 }
 .square{
-    width: 200px;
-    height: 200px;
-    font-size: 4rem;
+    @include square(200px,200px , 4rem, 5px);
 }

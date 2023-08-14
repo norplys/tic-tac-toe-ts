@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import Board from './assets/component/board'
+import History from './assets/component/history';
 import './App.scss'
 
 
 type defaultArray = (null|string)[];
+type history = (any)[][];
 
 function App() {
 const [array,setArray] = useState<defaultArray>(Array(9).fill(null));
 const [isx, setIsx] = useState<boolean>(false);
+const [history, setHistory] = useState<history>([Array(9).fill(null)])
+
 
 function handleClick(event : number) {
   let copyarray = [...array];
@@ -18,29 +22,61 @@ function handleClick(event : number) {
   copyarray[event] = 'x';
   setIsx(!isx); 
   setArray(copyarray);
+  setHistory([...history , copyarray]);
   return;};
 
   copyarray[event] = 'O';
   setIsx(!isx);
   setArray(copyarray);
+  setHistory([...history , copyarray]);
 };
+function handleHistory(event : (null|string)[]){
+  let copyHistory = [...history];
+  const newHistory =  copyHistory.slice(history.indexOf(event));
+  setHistory(newHistory);
+
+
+  setArray(event);
+} 
+
+function reset() : void{
+  setArray(Array(9).fill(null));
+  setHistory([Array(9).fill(null)]);
+  stat = '';
+}
 
 let winners = countingWinner(array);
 let stat  = ``;
 if(winners){
   stat = `Winner = ${winners}`
-}else{
+}else if(array.includes(null) === false)
+{
+  stat = `Draw`
+}
+else{
   stat = `Turn = ${isx ? 'X' : 'O'}`
 }
-
-
   return (
-    <>
-      <div className='history'></div>
+    <div className='game'>
+      <div className='history'>
+        <button onClick={reset}>RESET</button>
+        <div className='buttonHistory'>
+        {history.map((each,i) => {
+          const isnull = each.some((x) => x != null);
+          if(isnull){
+           return <History  click = {handleHistory} array = {each} key = {i} class={i.toString()}/>
+          }else{
+            return;
+          }
+        })}
+      </div>
+      </div>
       <Board  click = {handleClick} array = {array} stat= {stat}/>
-    </>
+    </div>
   )
 }
+
+
 
 function countingWinner (array : (null | string)[]) : string | null | boolean | void {
    const winner : number[][] = [
