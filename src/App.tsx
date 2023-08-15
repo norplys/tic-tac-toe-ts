@@ -32,10 +32,9 @@ function handleClick(event : number) {
 };
 function handleHistory(event : (null|string)[]){
   let copyHistory = [...history];
-  const newHistory =  copyHistory.slice(history.indexOf(event));
+  const newHistory =  copyHistory.slice(history.indexOf(event), history.indexOf(event) + 1);
+
   setHistory(newHistory);
-
-
   setArray(event);
 } 
 
@@ -59,7 +58,7 @@ else{
   return (
     <div className='game'>
       <div className='history'>
-        <button onClick={reset}>RESET</button>
+        <button className = 'reset' onClick={reset}><i className="fa-solid fa-arrows-spin fa-spin"></i></button>
         <div className='buttonHistory'>
         {history.map((each,i) => {
           const isnull = each.some((x) => x != null);

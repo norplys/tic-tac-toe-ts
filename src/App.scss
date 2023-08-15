@@ -31,16 +31,28 @@ body{
     @include flex(center,center,row-reverse);
     gap: 10px;
 }
+.reset{
+    margin-bottom: 5px;
+    border: none;
+    background : none;
+    i{
+        color: white;
+        font-size: 2rem;
+    }
+}
 .history{
     color: white;
     @include flex(center,center ,column);
 }
 .buttonHistory{
-    @include flex(flex-start,flex-start);
-    color:white;
-    border : 1px solid white;
-    width: 300px;
-    height: 300px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(3,100px);
+    grid-template-rows: repeat(3,100px);
+    border : 1px solid aqua;
+
+    width: 310px;
+    height: 310px;
 }
 .outside{
     color: white;
